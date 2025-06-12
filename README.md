@@ -8,24 +8,23 @@ These are beginner-friendly, well-organized notes on Django REST Framework (DRF)
 ## 🔁 Topics Covered
 | # | Topic | Description | 
 |--|--|--|
-| 1 | Application Programming Interface | Basic API intro & client-server overview |
-| 2 | REST & REST APIs | REST principles and HTTP methods |
-| 3 | Django REST Framework | What is DRF and why it’s used |
-| 4 | Serializers | Convert complex data to JSON and vice versa |
-| 5 | Validators | Validate input data (field-level, object-level) |
-| 6 | APIView | Base view class in DRF |
-| 7 | GenericAPIView + Mixins	 | Reusable CRUD logic via mixins |
-| 8 | Concrete Generic Views | Prebuilt views for common CRUD operations |
-| 9 | ViewSets & Routers | Combine multiple views in a single class |
-| 10 | Authentication | Verify user identity |
-| 11 | Permissions | Restrict access based on rules/roles |
-| 12 | Token Authentication | Token-based login (basic DRF token auth) |
-| 13 | JSON Web Tokens (JWT) | Secure stateless authentication via tokens |
-| 14 | Throttling | Limit number of requests (rate-limiting) |
-| 15 | Filters | Search/filter data dynamically via URL |
-| 16 | Pagination	 | Break large datasets into pages |
-| 17 | Serializer Relations	 | Handle ForeignKey/related data in serializers |
----------
+| 1 | [Application Programming Interface](#-application-programming-interface) | Basic API intro & client-server overview |
+| 2 | [REST & REST APIs](#-rest-representational-state-transfer) | REST principles and HTTP methods |
+| 3 | [Django REST Framework](#-what-is-drf) | What is DRF and why it's used |
+| 4 | [Serializers](#-1-serializers) | Convert complex data to JSON and vice versa |
+| 5 | [Validators](#️-2-validators) | Validate input data (field-level, object-level) |
+| 6 | [APIView](#️-3-apiview-basic-view-class) | Base view class in DRF |
+| 7 | [GenericAPIView + Mixins](#-4-genericapiview--mixins) | Reusable CRUD logic via mixins |
+| 8 | [Concrete Generic Views](#-5-concrete-generic-views) | Prebuilt views for common CRUD operations |
+| 9 | [ViewSets & Routers](#️-6-viewsets) | Combine multiple views in a single class |
+| 10 | [Authentication](#-7-authentication) | Verify user identity |
+| 11 | [Permissions](#-8-permissions) | Restrict access based on rules/roles |
+| 12 | [Token Authentication](#-9-token-authentication) | Token-based login (basic DRF token auth) |
+| 13 | [JSON Web Tokens (JWT)](#-10-json-web-tokens-jwt) | Secure stateless authentication via tokens |
+| 14 | [Throttling](#-11-throttling) | Limit number of requests (rate-limiting) |
+| 15 | [Filters](#-12-filters) | Search/filter data dynamically via URL |
+| 16 | [Pagination](#-13-pagination) | Break large datasets into pages |
+| 17 | [Serializer Relations](#-14-serializer-relations) | Handle ForeignKey/related data in serializers |
 
 
 ## 📡 Application Programming Interface
