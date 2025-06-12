@@ -20,11 +20,12 @@ These are beginner-friendly, well-organized notes on Django REST Framework (DRF)
 | 10 | [Authentication](#-7-authentication) | Verify user identity |
 | 11 | [Permissions](#-8-permissions) | Restrict access based on rules/roles |
 | 12 | [Token Authentication](#-9-token-authentication) | Token-based login (basic DRF token auth) |
-| 13 | [JSON Web Tokens (JWT)](#-10-json-web-tokens-jwt) | Secure stateless authentication via tokens |
-| 14 | [Throttling](#-11-throttling) | Limit number of requests (rate-limiting) |
-| 15 | [Filters](#-12-filters) | Search/filter data dynamically via URL |
-| 16 | [Pagination](#-13-pagination) | Break large datasets into pages |
-| 17 | [Serializer Relations](#-14-serializer-relations) | Handle ForeignKey/related data in serializers |
+| 13 | [HttPie](#httppie) | Testing APIs |
+| 14 | [JSON Web Tokens (JWT)](#-10-json-web-tokens-jwt) | Secure stateless authentication via tokens |
+| 15 | [Throttling](#-11-throttling) | Limit number of requests (rate-limiting) |
+| 16 | [Filters](#-12-filters) | Search/filter data dynamically via URL |
+| 17 | [Pagination](#-13-pagination) | Break large datasets into pages |
+| 18 | [Serializer Relations](#-14-serializer-relations) | Handle ForeignKey/related data in serializers |
 
 
 ## 📡 Application Programming Interface
@@ -274,7 +275,7 @@ urlpatterns = [
 ----------
 
 
-## 🔐  7. Authentication
+## 🔐 7. Authentication
 
 Authentication is the process of verifying the identity of a user or client making a request to the API.
 
@@ -301,7 +302,7 @@ Authentication is the process of verifying the identity of a user or client maki
 -----
 
 
-## ✅  8. Permissions
+## ✅ 8. Permissions
 
 Permissions control _what actions_ an authenticated or unauthenticated user can perform on a resource. Permissions checks are always run at very start of the view (after authentication) before any other code is allowed to proceed.
 
@@ -366,7 +367,7 @@ path('gettoken/', obtain_auth_token)
 ### Example:
 > http POST http://127.0.0.1:8000/gettoken/ username="user" password="pass"
     
-4.  **Using Signals:**  
+4. **Using Signals:**  
     Automatically generate a token on user creation:
     
 ```python
@@ -389,7 +390,7 @@ def  create_auth_token(sender, instance=None, created=False, **kwargs):
 ```
 
 
-## ⚙️  HttPie
+## ⚙️ HttPie
 
 A command-line tool for testing APIs (alternative to `curl` or Postman).
 
@@ -405,7 +406,7 @@ A command-line tool for testing APIs (alternative to `curl` or Postman).
 > http GET http://127.0.0.1:8000/api/students/
  
 
-## 🔐 10.  JSON Web Tokens (JWT)
+## 🔐 10. JSON Web Tokens (JWT)
 
 JWT is a compact, URL-safe token format used to securely transmit information between parties as a JSON object. Unlike the built-in TokenAuthentication scheme, it doesn't need to use a database to validate a token.
 
@@ -423,7 +424,7 @@ JWT is a compact, URL-safe token format used to securely transmit information be
 4.  Server validates the token's signature to authenticate the user.
     
 
-### ⏱️  Configure Token Lifetime:
+### ⏱️ Configure Token Lifetime:
 ```python
 # settings.py
 from datetime import timedelta
@@ -573,7 +574,7 @@ class  ListStudents(ListAPIView):
 ----------------
 
 
-## 📄 13.  Pagination
+## 📄 13. Pagination
 
 It breaks large querysets into smaller, manageable pages to reduce load time and improve performance.
 
