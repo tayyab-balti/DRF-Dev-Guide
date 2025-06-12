@@ -1,4 +1,3 @@
-
 # Django REST Framework (DRF) Notes
 
 These are beginner-friendly, well-organized notes on Django REST Framework (DRF) — useful for quick reference, interviews, and project implementation.
@@ -6,12 +5,34 @@ These are beginner-friendly, well-organized notes on Django REST Framework (DRF)
 ----------
 
 
+## 🔁 Topics Covered
+| # | Topic | Description | 
+|--|--|--|
+| 1 | Application Programming Interface | Basic API intro & client-server overview |
+| 2 | REST & REST APIs | REST principles and HTTP methods |
+| 3 | Django REST Framework | What is DRF and why it’s used |
+| 4 | Serializers | Convert complex data to JSON and vice versa |
+| 5 | Validators | Validate input data (field-level, object-level) |
+| 6 | APIView | Base view class in DRF |
+| 7 | GenericAPIView + Mixins	 | Reusable CRUD logic via mixins |
+| 8 | Concrete Generic Views | Prebuilt views for common CRUD operations |
+| 9 | ViewSets & Routers | Combine multiple views in a single class |
+| 10 | Authentication | Verify user identity |
+| 11 | Permissions | Restrict access based on rules/roles |
+| 12 | Token Authentication | Token-based login (basic DRF token auth) |
+| 13 | JSON Web Tokens (JWT) | Secure stateless authentication via tokens |
+| 14 | Throttling | Limit number of requests (rate-limiting) |
+| 15 | Filters | Search/filter data dynamically via URL |
+| 16 | Pagination	 | Break large datasets into pages |
+| 17 | Serializer Relations	 | Handle ForeignKey/related data in serializers |
+---------
+
+
 ## 📡 Application Programming Interface
 
 An **API** is a set of rules that allows different software applications to communicate without exposing backend logic or database structure.
 
-**Example:** An e-commerce app uses an API to connect with a payment gateway, allowing customers to make online payment.
-
+**Example:** An e-commerce app uses an API to connect with a payment gateway, allowing customers to make online payments.
 
 ### 🔄 Client-Server Scenario
 
@@ -24,8 +45,7 @@ An **API** is a set of rules that allows different software applications to comm
 
 ### 🌐 How Web APIs Work
 
-**How Web API Works ?**
-- Client makes HTTP Requests to API
+- Client makes HTTP Requests to the API
 
 - API will communicate to Web App/Database (if needed)
 
@@ -36,11 +56,11 @@ An **API** is a set of rules that allows different software applications to comm
 
 ## 🌍 REST (Representational State Transfer)
 
-REST is an architecture style for designing/develop web APIs that uses standard HTTP methods for communication.
+REST is an architecture style for designing/developing web APIs that uses standard HTTP methods for communication.
 
 ### ✅ REST API
 
-An API that follows REST principles or is developed using REST. It allows clients (like mobile, browsers) to interact with servers using HTTP requests 
+An API that follows REST principles or is developed using REST. It allows clients (like mobile devices, browsers) to interact with servers using HTTP requests 
 
 **Supported HTTP Methods:**
 
@@ -59,13 +79,13 @@ Django REST Framework (DRF) is a powerful and flexible toolkit for building Web 
 
 ----------
 
-## 🎯 Core Components
+# 🎯 Core Components
 
-### 1. Serializers
+## 🧩 1. Serializers
 
-Serializers allow complex data (e.g., QuerySets) to native Python data types (called serialization) and rendered as JSON/XML or other content types which is understandable by front end and vice versa (deserialization).
+Serializers allow complex data (e.g., QuerySets) to be converted to native Python data types (called serialization) and rendered as JSON/XML or other content types which is understandable by front end and vice versa (deserialization).
 
-#### Example:
+### Example:
 
 ```python
 # serializers.py
@@ -93,7 +113,7 @@ def post(self, request):
 -   `.validated_data` → Access the cleaned, valid data.
 ----------
 
-#### 🔁 Serialization Flow
+## 🔁 Serialization Flow
 
 ```mermaid
 graph LR
@@ -103,7 +123,7 @@ B -- Render into Json --> D[JSON Data]
 
 **JSONRenderer**: used to render serialized data into JSON which is understandable by Front End.
 
-#### Example
+### Example
 ```python
 stu = Student.objects.get(id=1)  # complex DataType
 serializer = StudentSerializer(stu)  # converts into python DT
@@ -111,11 +131,11 @@ json_data = JSONRenderer().render(serializer.data) # pass the dictionary into yo
 ```
 ---------
 
-#### DeSerialization
+## 🧩 DeSerialization
 
 Serializers also provide deserialization, allowing parsed data to be converted back into complex types, after first validating the incoming data.
 
-#### 🔁 DeSerialization Flow
+### 🔁 Deserialization Flow
 
 ```mermaid
 graph LR
@@ -123,7 +143,7 @@ A[Json Data] -- Parse Data --> B[Python DataType]
 B -- De-serialization --> D[Complex DataType]
 ```
 
-**JSONParser()**: Converts JsonData to python DataType for validation and saving to database.
+**JSONParser()**: Converts JSON data to python DataType for validation and saving to database.
 
 **Scenario / Data Flow Summary**
 
@@ -138,7 +158,8 @@ Defines validation rules ➝ defines how to save data to DB when valid
 
 --------
 
-### 2. Validators
+
+## 🛡️ 2. Validators
 
 are functions or classes used to check if data meets certain rules before saving it to the database or processing it.
 
@@ -149,7 +170,7 @@ are functions or classes used to check if data meets certain rules before saving
 
 -  `Custom function`: Passed to validators=[validate_func] 
 	 
-#### Example (Object-level):
+### Example (Object-level):
 ```python
 # Object-level validators
 def validate(self, data):
@@ -159,8 +180,10 @@ def validate(self, data):
 ```
 -------
 
-### 3. APIView (Basic View Class)
+## ⚙️ 3. APIView (Basic View Class)
 Inherits from Django's `View`, but provides DRF’s features like request parsing and Response handling.
+
+### Example:
 
 ```python
 from rest_framework.views import APIView
@@ -176,11 +199,11 @@ class StudentAPI(APIView):
 ----------
 
 
-### 4. GenericAPIView + Mixins
+## 🔄 4. GenericAPIView + Mixins
 
 DRF provides generic views that can be combined with mixins to simplify CRUD operations. Each Mixin handles a specific HTTP action (like GET, POST).
 
-#### Example:
+### Example:
 
 ```python
 from rest_framework.generics import GenericAPIView
@@ -198,12 +221,13 @@ class StudentListCreateAPI(GenericAPIView, ListModelMixin, CreateModelMixin):
 ```
 ----------
 
-### 5. **Concrete Generic Views**
+
+## 🧱 5. **Concrete Generic Views**
 
 These are shortcuts combining `GenericAPIView` + relevant mixins.
 
-| View | Description
-|--|--|--|
+| View | Description |
+|--|--|
 | `ListAPIView` | Read-only list of objects |
 | `CreateAPIView` | Create new object |
 | `RetrieveAPIView` | Retrieve single object |
@@ -213,17 +237,18 @@ These are shortcuts combining `GenericAPIView` + relevant mixins.
 | `RetrieveUpdateDestroyAPIView` | Retrieve, update, delete |
 ----------
 
-### 5. **ViewSets**
 
-ViewSets groups multiple related views (GET, POST, PUT, DELETE) into a single class, requiring less code and working with routers to automatically generate URLs.
+## 🗂️ 6. ViewSets
 
-#### Types:
+ViewSets group multiple related views (GET, POST, PUT, DELETE) into a single class, requiring less code and working with routers to automatically generate URLs.
+
+### Types:
 
 - `ViewSet` → Base class (you define all actions manually)
 - `GenericViewSet` → Combine with mixins for flexibility
 - `ModelViewSet` → Full CRUD (create, retrieve, update, delete) with one class
 
-#### Example:
+### Example:
 
 ```python
 from rest_framework import viewsets
@@ -233,7 +258,7 @@ class StudentViewSet(viewsets.ModelViewSet):
     serializer_class = StudentSerializer
 ```
 
-#### Registering with Routers:
+### Registering with Routers:
 
 ```python
 #urls.py
@@ -249,7 +274,8 @@ urlpatterns = [
 ```
 ----------
 
-### 🔐  6. Authentication
+
+## 🔐  7. Authentication
 
 Authentication is the process of verifying the identity of a user or client making a request to the API.
 
@@ -275,7 +301,8 @@ Authentication is the process of verifying the identity of a user or client maki
 
 -----
 
-### ✅  7. Permissions
+
+## ✅  8. Permissions
 
 Permissions control _what actions_ an authenticated or unauthenticated user can perform on a resource. Permissions checks are always run at very start of the view (after authentication) before any other code is allowed to proceed.
 
@@ -310,7 +337,8 @@ Permissions control _what actions_ an authenticated or unauthenticated user can 
 -   Or globally via `DEFAULT_PERMISSION_CLASSES` in `settings.py`
 ----------
 
-### 🔑 8.  Token Authentication
+
+## 🔑 9. Token Authentication
 A simple token-based scheme used for authenticating users.
 
 **Features:**
@@ -327,7 +355,7 @@ A simple token-based scheme used for authenticating users.
 1.  **Admin Panel** – Add manually via Django admin.
     
 2.  **Command Line** 
-> python manage.py drf_create_token <username>
+	> python manage.py drf_create_token <username>
 
 3.  **Exposing an endpoint:** - By user itself
 
@@ -336,11 +364,11 @@ from rest_framework.authtoken.views import obtain_auth_token
 path('gettoken/', obtain_auth_token)
 ```    
 
-Example:
+### Example:
 > http POST http://127.0.0.1:8000/gettoken/ username="user" password="pass"
     
 4.  **Using Signals:**  
-    Automatically generate token on user creation:
+    Automatically generate a token on user creation:
     
 ```python
 from django.db import models
@@ -362,11 +390,11 @@ def  create_auth_token(sender, instance=None, created=False, **kwargs):
 ```
 
 
-### ⚙️ 9.  HttPie
+## ⚙️  HttPie
 
 A command-line tool for testing APIs (alternative to `curl` or Postman).
 
-**Why use it?**
+### Why use it?
 
 -   Simple syntax for GET, POST, PUT, DELETE
     
@@ -374,18 +402,18 @@ A command-line tool for testing APIs (alternative to `curl` or Postman).
     
 -   Great for quick terminal-based testing
     
-**Example usage:**
+### Example usage:
 > http GET http://127.0.0.1:8000/api/students/
  
 
-### 🔐 10.  JSON Web Tokens (JWT)
+## 🔐 10.  JSON Web Tokens (JWT)
 
 JWT is a compact, URL-safe token format used to securely transmit information between parties as a JSON object. Unlike the built-in TokenAuthentication scheme, it doesn't need to use a database to validate a token.
 
 **Install:**
 > pip install djangorestframework-simplejwt
 
-#### 🔄 How JWT Works:
+### 🔄 How JWT Works:
 
 1.  User logs in → Server returns `access` & `refresh` tokens.
     
@@ -396,7 +424,7 @@ JWT is a compact, URL-safe token format used to securely transmit information be
 4.  Server validates the token's signature to authenticate the user.
     
 
-#### ⏱️  Configure Token Lifetime:
+### ⏱️  Configure Token Lifetime:
 ```python
 # settings.py
 from datetime import timedelta
@@ -407,7 +435,7 @@ SIMPLE_JWT = {
 }
 ```
 
-#### 🔁 Token Renewal Flow:
+### 🔁 Token Renewal Flow:
 
 1. User logs in → Gets both `access` and `refresh` tokens.
 
@@ -423,17 +451,12 @@ SIMPLE_JWT = {
    
 4.  Server responds with a new access token.
 
-#### 🔌 JWT Endpoints (SimpleJWT):
+### 🔌 JWT Endpoints (SimpleJWT):
 
-- [ ] TokenObtainPairView: Get Access & Refresh tokens 
-> > cmd> http POST http://localhost:8000/gettoken/username="" password=""
-- [ ] TokenVerifyView: Check if token is valid
-> > cmd> http POST http://localhost:8000/verifytoken/ token="access token key"
-- [ ] TokenRefreshView: Get new Access token
-> > cmd> http POST http://localhost:8000/refreshtoken/ token="refresh token
 ```python
 # urls.py
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
+
 urlpatterns = [
     path('gettoken/', TokenObtainPairView.as_view(), name="tokenobtainpair"),
 	path('refreshtoken/', TokenRefreshView.as_view(), name="tokenrefresh"),
@@ -441,30 +464,89 @@ urlpatterns = [
 ]
 ```
 
-## Throttling
-Throttling are like permissions that limits the number of requests a user/client can make to an API within a specified time period.
+### CLI Examples with `httpie`:
 
-**Why we use throttling**:
+1)   🔐 Get tokens: Get Access & Refresh tokens 
+> http POST http://127.0.0.1:8000/gettoken/ username="user" password="pass"
+
+2)   ✅ Verify token: Check if token is valid
+> http POST http://127.0.0.1:8000/verifytoken/ token="your_access_token"
+
+3)   🔁 Refresh token:  Get new Access token
+> http POST http://127.0.0.1:8000/refreshtoken/ refresh="your_refresh_token"
+-------------------
+
+
+## 🚦 11. Throttling
+
+Throttling limits the number of API requests a user or client can make to an API in a given time period.
+
+### ✅ Why Use Throttling?
+
 - Prevent *abuse* or *overuse* of the API (e.g., spamming or DoS attacks).
 - Ensure *fair usage* among multiple users. 
 - Protect server resources and maintain performance.
         
-**Types in DRF**:
-- [ ] `AnonRateThrottle`: Limits requests from *unauthenticated users*.
-- [ ] `UserRateThrottle`: Limits requests from *authenticated users*.
-- [ ] `ScopedRateThrottle`: Restrict access to specific parts of the API.
+### 🛠️ DRF Throttle Classes
+
+1)  `AnonRateThrottle`: Limits requests from *unauthenticated users*.
+2)  `UserRateThrottle`: Limits requests from *authenticated users*.
+3) `ScopedRateThrottle`: Restrict access to specific parts of the API (views/actions).
+
+### ⚙️ Configuration in `settings.py`:
+
+```python
+REST_FRAMEWORK = {
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle',
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '10/hour',
+        'user': '100/day',
+    }
+}
+```
+
+### Example
+
+```python
+# views.py
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.throttling import AnonRateThrottle, UserRateThrottle
+
+class MyView(APIView):
+    throttle_classes = [AnonRateThrottle, UserRateThrottle]
+
+    def get(self, request):
+        return Response({"message": "Throttling applied"})
+```
 
 If limits exceeded, DRF returns `429 Too Many Requests.`
 
-## Filters
 
-It allows clients to narrow down query results  by specific field values (e.g., /api/posts/?author=admin).
+## 🔍 12. Filters
 
- - Improves API usability by letting clients retrieve only relevant data.
- - Simplest way to filter queryset of any view that subclasses GenericAPIView is to override the .get_queryset() method.
- - django-filter package includes a DjangoFilterBackend class for field filtering.
- - `search_fields` allows keyword-based search across specified model fields using the `?search=` query parameter.
- - `OrderingFilter` allows clients to sort query results by specified fields using the `?ordering=` query parameter.
+Filters let clients narrow down the results returned by an API based on specific criteria (field values).
+
+### ✅ Why Use Filters?
+
+-   Improves **usability** by letting clients retrieving only relevant data
+    
+-   Supports dynamic querying via URL params (e.g., `/api/posts/?author=admin`)
+    
+
+### 🧰 Filtering Options in DRF:
+
+-   `DjangoFilterBackend` – field-based filtering (requires `django-filter package`)
+    
+-   `SearchFilter` – keyword-based search (`?search=`)
+    
+-   `OrderingFilter` – sorting by field (`?ordering=`)
+    
+
+### Example:
 
 ```python
 from .models import  Student
@@ -489,23 +571,34 @@ class  ListStudents(ListAPIView):
 		# user = self.request.user    # gets current login user
 		# return Student.objects.filter(passby=user)
 ```
+----------------
 
-## Pagination
 
-It breaks large querysets into smaller, manageable pages to improve performance and user experience.
-- Reduces response size and load time.
+## 📄 13.  Pagination
 
-**Types:**
-- [ ] PageNumberPagination: Splits results by page number. (Uses `?page=1`, `?page=2`, etc.)
-- [ ] LimitOffsetPagination: Uses `?limit=10&offset=20` to control result size and starting point. (limit is same as of page_size in page_no_pagination)
-- [ ] CursorPagination: Only presents forward and reverse controls, and does not allow client to navigate to arbitrary positions.
+It breaks large querysets into smaller, manageable pages to reduce load time and improve performance.
+
+### 🔧 Why Use Pagination?
+
+-   Improves response speed and UX
+    
+-   Reduces payload for large datasets
+    
+
+### 📦 Pagination Classes in DRF:
+
+ 1. `PageNumberPagination`: Splits results by page number. (Uses `?page=1`, `?page=2`, etc.) 
+ 2. `LimitOffsetPagination`: Uses `?limit=10&offset=20` to control result size and starting point. (limit is same as of page_size in page_no_pagination)
+ 3. `CursorPagination`: Only presents forward and reverse controls, and does not allow client to navigate to arbitrary positions.
+
+### Example (Custom Page Number Pagination):
 
 ```python
 from rest_framework.pagination import  PageNumberPagination
 
 class  MyPageNumberPagination(PageNumberPagination):
 page_size = 5  # no of records a page shows
-page_query_param = 'p'
+page_query_param = 'p'  # allows ?p=2
 page_size_query_param = 'records'  # allows users to choose no of records
 max_page_size = 8  # max no of records in a page
 
@@ -515,21 +608,27 @@ class ListStudents(ListAPIView):
 	pagination_class = MyPageNumberPagination
 ```
 
-## Serializer Relations
 
-Serializer relations are used to represent relationships (e.g., ForeignKey, ManyToMany) between models in serialized data.
+## 🔗 14. Serializer Relations
 
-**Usage:**
- - To properly serialize and deserialize related model data.
- - To represent nested or linked objects in a clear and reusable way.
- - To support relational integrity and navigation in APIs.
- 
- **Types:**
-- [ ] PrimaryKeyRelatedField: Shows related object by its primary key.
-- [ ] StringRelatedField: Uses the model’s `__str__()` method. (Read only)
-- [ ] SlugRelatedField: Uses a specific slug field instead of ID. (Read or Write)
-- [ ] HyperlinkedRelatedField: Returns a hyperlink to the related object’s detail view.
-- [ ] Nested Serializers: Embeds full object data using another serializer.
+Serializer relations represent Django model relationships (e.g., `ForeignKey`, `ManyToMany`) in API responses.
+
+### 📌 Why Use?
+
+-   properly serialize and deserialize related model data.
+    
+-   Enable linked/nested object structure
+    
+-   Maintain relational integrity and easy navigation in APIs
+    
+
+### 🔄 Types of Relationship Fields:
+
+ 1. `PrimaryKeyRelatedField`: Shows related object by its ID (default)
+ 2.`StringRelatedField`: Uses model’s `__str__()` method (read-only)
+ 3. `SlugRelatedField`: Uses custom field like `slug` or `title` (read or write)
+ 4. `HyperlinkedRelatedField`: Returns URL of related object's detail view
+ 5. `Nested Serializers`: Embeds full data using another serializer class
 
 ```python
 # models.py:
@@ -541,9 +640,12 @@ class Song(models.Model):
 	title = models.CharField(max_length=50)
 	singer = models.ForeignKey(Singer, on_delete=models.CASCADE, related_name='song') # will use related_name in SingerSerializer class
 	duration = models.IntegerField()
+```
 
+```python
 # serializer.py:
 class SingerSerializer(serializers.ModelSerializer):
+	# Options (uncomment as needed):
 	# song = serializers.StringRelatedField(many=True, read_only=True)
 	# song = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 	# song = serializers.HyperlinkedRelatedField(many=True, read_only=True, view_name='song-detail')
@@ -568,8 +670,10 @@ class SongViewSet(viewsets.ModelViewSet):
 	queryset = Song.objects.all()
 	serializer_class = SongSerializer
 ```
+
+### HyperLinked Model Serializer Example
+
 ```python
-# HyperLinked Model Serializer
 class StudentSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Student
@@ -577,16 +681,6 @@ class StudentSerializer(serializers.HyperlinkedModelSerializer):
 ```
 ---------------------------
 
-
-## 🔁 Summary Table
-
-| Component | Use Case | Code Style |
-|--|--|--|
-| `APIView` | Custom methods | Manual views |
-| `GenericAPIView + Mixins` | Reusable patterns | Semi-automatic |
-| `Concrete Views` | Standard CRUD | Minimal setup |
-| `ViewSet + Routers` | Fully abstracted | DRY, clean code |
----------
 
 > ⭐ Tip: Use [Postman](https://www.postman.com/) or [httpie](https://httpie.io/) for testing your APIs.
 
