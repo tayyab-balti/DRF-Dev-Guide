@@ -20,7 +20,7 @@ These are beginner-friendly, well-organized notes on Django REST Framework (DRF)
 | 10 | [Authentication](#-7-authentication) | Verify user identity |
 | 11 | [Permissions](#-8-permissions) | Restrict access based on rules/roles |
 | 12 | [Token Authentication](#-9-token-authentication) | Token-based login (basic DRF token auth) |
-| 13 | [HttPie](⚙️#-httPie) | Testing APIs |
+| 13 | [HttPie](#httPie-1) | Testing APIs |
 | 14 | [JSON Web Tokens (JWT)](#-10-json-web-tokens-jwt) | Secure stateless authentication via tokens |
 | 15 | [Throttling](#-11-throttling) | Limit number of requests (rate-limiting) |
 | 16 | [Filters](#-12-filters) | Search/filter data dynamically via URL |
